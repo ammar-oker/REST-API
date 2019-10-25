@@ -41,8 +41,8 @@
 
       xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
-
             postRequestHandler(xhr.response);
+            return xhr.response;
         }
     }
 
@@ -65,7 +65,7 @@
 
     xhrMedia.onreadystatechange = () => {
       if(xhrMedia.readyState === XMLHttpRequest.DONE){
-        mediaRequestHandler(xhrMedia.response);
+        return xhrMedia.response ;
       }
     }
 
@@ -73,10 +73,15 @@
     xhrMedia.send();
 
     // Handle Media Request
-    const mediaRequestHandler = (res) => {
-      console.log(res);
-      document.getElementById('img').src = res[1].media_details.sizes.large.source_url
-    }
+    setTimeout(() => {
+      var postsResponse = xhr.onreadystatechange()[1].featured_media;
+      console.log(postsResponse);
+      var mediaResponse = xhrMedia.onreadystatechange();
+      console.log(mediaResponse);
+      var result = mediaResponse.filter(mediaResponse => mediaResponse.id === postsResponse);
+      console.log(result);
+      document.getElementById('img').src = result[0/*ALWAYS ZERO*/].media_details.sizes.large.source_url;
+    },1000);
     </script>
   </body>
 </html>

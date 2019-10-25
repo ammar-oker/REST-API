@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="./post-style.css">
-    <title>Hello, world!</title>
+    <title>Post 1</title>
   </head>
   <body>
     <div class="container">
@@ -18,7 +18,7 @@
           <img id="img" src="#">
         </div>
         <div class="col">
-          <h1 id="title" class="my-5"></h1>
+          <h1 id="title"  class="my-5"></h1>
           <p id="description"></p>
         </div>
       </div>
@@ -41,8 +41,8 @@
 
       xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
-
             postRequestHandler(xhr.response);
+            return xhr.response;
         }
     }
 
@@ -65,7 +65,7 @@
 
     xhrMedia.onreadystatechange = () => {
       if(xhrMedia.readyState === XMLHttpRequest.DONE){
-        mediaRequestHandler(xhrMedia.response);
+        return xhrMedia.response ;
       }
     }
 
@@ -73,10 +73,15 @@
     xhrMedia.send();
 
     // Handle Media Request
-    const mediaRequestHandler = (res) => {
-      console.log(res);
-      document.getElementById('img').src = res[9].media_details.sizes.full.source_url
-    }
+    setTimeout(() => {
+      var postsResponse = xhr.onreadystatechange()[9].featured_media;
+      console.log(postsResponse);
+      var mediaResponse = xhrMedia.onreadystatechange();
+      console.log(mediaResponse);
+      var result = mediaResponse.filter(mediaResponse => mediaResponse.id === postsResponse);
+      console.log(result);
+      document.getElementById('img').src = result[0/*ALWAYS ZERO*/].media_details.sizes.full.source_url;
+    },1000);
     </script>
   </body>
 </html>
