@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="./post-style.css">
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <img id="img" src="#">
+        </div>
+        <div class="col">
+          <h1 id="title" class="my-5"></h1>
+          <p id="description"></p>
+        </div>
+      </div>
+      <div class="row">
+        <div id="content" class="col"></div>
+      </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script>
+      //Post AJAX Function
+      const xhr = new XMLHttpRequest();
+      xhr.responseType = 'json';
+      const url = "https://sam-tur.com/wp-json/wp/v2/posts"
+
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+
+            postRequestHandler(xhr.response);
+        }
+    }
+
+    xhr.open('GET', url);
+    xhr.send();
+
+    // Handle Posts Request
+    const postRequestHandler = (res) => {
+      // console.log(res);
+      document.title = res[7].title.rendered
+      document.getElementById('title').innerHTML = res[7].title.rendered
+      document.getElementById('description').innerHTML = res[7].excerpt.rendered
+      document.getElementById('content').innerHTML = res[7].content.rendered
+    }
+
+    //Media AJAX Function 
+    const xhrMedia = new XMLHttpRequest();
+    xhrMedia.responseType = 'json';
+    const mediaUrl = "https://sam-tur.com/wp-json/wp/v2/media";
+
+    xhrMedia.onreadystatechange = () => {
+      if(xhrMedia.readyState === XMLHttpRequest.DONE){
+        mediaRequestHandler(xhrMedia.response);
+      }
+    }
+
+    xhrMedia.open('GET', mediaUrl);
+    xhrMedia.send();
+
+    // Handle Media Request
+    const mediaRequestHandler = (res) => {
+      console.log(res);
+      document.getElementById('img').src = res[7].media_details.sizes.full.source_url
+    }
+    </script>
+  </body>
+</html>
