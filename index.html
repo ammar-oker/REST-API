@@ -7,17 +7,39 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <title>JSON Request</title>
+    <title>Sam Tur REST API</title>
+    <style>
+      #category1, #category0, #category6, #subcat31, #subcat51, #post0, #post1, #post2{
+        display: none;
+      }
+      nav{
+        display: inline-flex;
+        justify-content: space-between;
+      }
+    </style>
   </head>
   <body>
-    <img id="test" src="">
-    <div class="container text-center">
-      <div id="cards-wraper" class="row">
+    <nav class="sticky-top nav bg-dark text-center text-light">
+      <h2 class="mx-5">Last Posts</h2>
+      <h2 class="mx-5">Categories</h2>
+    </nav>
+    <div class="container-fluid text-center text-dark">
+      <div class="row">
+        <div class="col-4 sidebar bg-dark text-light position-fixed h-100" style="right: 0">
+          
+        <ul id="categories-wraper" class="my-3"></ul>
+      </div>
+      <div class="col-8">
+        <div class="text-dark"></div>
+        <div id="posts-wraper" class="row"></div>
       </div>
     </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="./main.js"></script>  
-  </body>
-  </html>
+    
+  </div>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="./js/main.js"></script>
+  <script type="text/javascript" src="./js/categories.js"></script>
+</body>
+</html>
